@@ -18,23 +18,18 @@ toggleMenu.addEventListener("click", () => {
 // 2. Display products based on
 // search keywords in the input fields.
 // ==================================
-const search = (value) => {
-  const perCard = document.querySelectorAll(".percard");
-  perCard.forEach((element) => {
-    element.style.display = "none";
-    const name = element.children[1].innerHTML.toUpperCase();
-    const percent = element.children[2].innerHTML.toUpperCase();
-    const figure = element.children[3].innerHTML.toUpperCase();
-    if (
-      name.includes(value) ||
-      percent.includes(value) ||
-      figure.includes(value)
-    ) {
-      element.style = "block";
+
+const searchInput = document.querySelector(".search_product");
+const searchProduct = document.getElementsByClassName("percard catalogue");
+searchInput.addEventListener("keyup", (event) => {
+  const { value } = event.target;
+  const searchQuery = value.toLowerCase();
+  for (const productName of searchProduct) {
+    let name = productName.textContent.toLowerCase();
+    if (name.includes(searchQuery)) {
+      productName.style.display = "block";
+    } else {
+      productName.style.display = "none";
     }
-  });
-};
-const searchProduct = document.querySelector(".search_product");
-searchProduct.addEventListener("input", (e) => {
-  search(e.target.value.toUpperCase());
+  }
 });
